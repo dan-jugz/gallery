@@ -1,5 +1,11 @@
 {% extends 'base.html'%}
 {% block content %}
+<style>
+        body{
+         background-image: url('http://tanamen.com/img/d_default/black-wall-texture/black-wall-texture-stone-5c73ff7e0e348.jpg');
+         background-size: 100%;
+        }
+</style>
 
 <h2 class="subtitle">Photobooth Home</h2>
 
@@ -10,19 +16,17 @@
     {% if photos%}
     {% for pic in photos %}
     <!-- Looping through photos   -->
-        <a data-toggle="modal" href="#{{pic.pk}}" class="picasso-modal-trigger">
-          <div class="grid-item">
-              <img src="{{pic.image.url}}" id="{{pic.id}}{{pic.img_name}}" alt="{{pic.img_name}}">
-              <div class="content-slide-up">
-                <p>{{ pic.img_name }}</p>
-                <hr class="underline">
-              </div>
+        <a data-toggle="modal" href="#{{pic.pk}}" class="grid-item">
+            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+              <img src="{{pic.image.url}}" id="{{pic.id}}{{pic.img_name}}" class="img-responsive" alt="{{pic.img_name}}">
+              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <h2 class="text-center"> {{ pic.title }} </h2>
+                  </div>
+                </div>
               <div class="overlay-slide-down"></div>
             </div>
         </a>
-
-
-           <!-- ================================ ===========================-->
+  <div class="container">
   <!-- Modal -->
 <div class="modal fade" id="{{pic.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -37,13 +41,13 @@
             <div class="card info-card">
                 <img class="card-img-top" src="{{pic.image.url}}" alt="Card image">
                 <div class="card-body">
-                  <h4 class="card-title text-center">{{pic.img_name}}</h4>
-                  <p class="card-text">{{pic.img_desc}}</p>
+                  <h4 class="card-title text-center">{{pic.title}}</h4>
+                  <p class="card-text">{{pic.post}}</p>
                   <ul class="list-group list-unstyled">
                     <li class="list-group-item">Location:{{pic.img_loc}}</li>
                     <li class="list-group-item">Category:{{pic.img_category}}</li>
                     <li class="list-group-item">Posted:{{pic.pub_date | date}}</li>
-                    <li class="list-group-item">Artist:{{pic.author.first_name}} {{pic.author.last_name}}</li>
+                    <li class="list-group-item">Artist:{{pic.user.first_name}} {{pic.author.last_name}}</li>
                   </ul>
                 </div>
             </div>
