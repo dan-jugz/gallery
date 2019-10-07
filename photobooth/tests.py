@@ -40,4 +40,16 @@ class ImageTestClass(TestCase):
         User.objects.all().delete()
         tags.objects.all().delete()
         Image.objects.all().delete()
-    
+
+
+class LocationTestClass(TestCase):
+    def setUp(self):
+        self.loc1=Location(location="Mombasa")
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.loc1,Location))
+
+    def test_save_location(self):
+        self.loc1.save_location()
+        locations=Location.objects.all()
+        self.assertTrue(len(locations)>0)
