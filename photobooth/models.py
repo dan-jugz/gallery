@@ -78,7 +78,7 @@ class Image(models.Model):
     # method that fetches photos with date published
     @classmethod
     def get_photos(cls):
-        photos=cls.objects.order_by('pub_date')
+        photos=cls.objects.order_by(pub_date__date = date)
         return photos
 
 
