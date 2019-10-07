@@ -26,16 +26,9 @@ def search_results(request):
         search_term=request.GET.get('photo')
         searched_photos=Image.search_by_category(search_term)
 
-        context={
-        'message':f"{search_term}",
-        'photos':searched_photos
-        }
-
-        return render(request,'search.html',context)
-                
+        context={'photos':searched_photos,'message':f"{search_term}" }
+        return render(request,'search.html',context)      
     else :
-
-        context={
-        'message':f"you havent searched for any term{search_term}"
-        }
+        context={'message':f"you havent searched for any term"}
         return render(request,'search.html',context)
+
