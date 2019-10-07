@@ -1,1 +1,1 @@
-web: gunicorn pictures:app --preload
+web: gunicorn pictures.wsgi --log-file -
