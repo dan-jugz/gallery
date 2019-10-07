@@ -5,6 +5,7 @@ import datetime as dt
 class Image(models.Model):
     title = models.CharField(max_length =60)
     post = models.CharField(max_length =100)
+    img_loc = models.ForeignKey(Location,on_delete=models.DO_NOTHING)
     pub_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to = 'images/',default='')
 
@@ -20,3 +21,12 @@ class User(models.Model):
 
     def __str__(self):
         return self.first_name
+
+
+class Location(models.Model):
+    loc_name=models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.loc_name
+
+
