@@ -36,3 +36,8 @@ class ImageTestClass(TestCase):
         self.new_image.tags.add(self.new_tag)
 
 
+    def tearDown(self):
+        User.objects.all().delete()
+        tags.objects.all().delete()
+        Image.objects.all().delete()
+    
