@@ -1,6 +1,7 @@
 from django.db import models
 import datetime as dt
-
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 
 # Create your models here.
 class User(models.Model):
@@ -31,6 +32,8 @@ class Location(models.Model):
     # method to delete a category from db  
     def delete_loc(self): 
         self.delete()
+
+
 class Category(models.Model):
     category_name = models.CharField(max_length=50)
 
@@ -65,3 +68,32 @@ class Image(models.Model):
     def __str__(self):
         return f'Image{self.title}-{self.img_loc}-{self.img_category}-{self.pub_date}'
     
+    #Using lookup that spans relations to fetch for all photos with a searched keyword regardless of case
+    @classmethod
+    def search_by_category(cls,search_term):
+        photos=cls.objects.filter( Q(img_category__category_name__iexact=search_term) | 
+        Q(img_loc__loc_name__icontains=search_term) | Q(img_name__icontains=search_term)  | Q(author__first_name__icontains=search_term))
+        return photos  
+
+    # method that fetches photos with date published
+    @classmethod
+    def get_photos(cls):
+        photos=cls.objects.order_by('pub_date')
+        return photos
+
+
+    @classmethod
+    def filter_by_location(cls,location):
+        photos=cls.objects.filter(img_loc__loc_name__icontains=location)
+        return photos
+
+
+    @classmethod
+    def get_img_by_id(cls,img_id):
+        pic=cls.objects.get(pk=img_id)
+        return pic
+
+    
+    @classmethod
+    def delete_photo():
+        pass
