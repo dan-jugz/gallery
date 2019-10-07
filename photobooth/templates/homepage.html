@@ -1,12 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <p>homepaging</p>
-</body>
-</html>
+{% extends 'base.html'%}
+{% block content %}
+
+<h2 class="subtitle">Photobooth Home</h2>
+
+    <!-- Looping through photos   -->
+        <a data-toggle="modal" href="#{{pic.pk}}" class="picasso-modal-trigger">
+          <div class="grid-item">
+              <img src="{{pic.image.url}}" id="{{pic.id}}{{pic.img_name}}" alt="{{pic.img_name}}">
+              <div class="content-slide-up">
+                <p>{{ pic.img_name }}</p>
+                <hr class="underline">
+              </div>
+              <div class="overlay-slide-down"></div>
+            </div>
+        </a>  
+        {% endfor %}   
+     
+        
+    
+    {% else %}
+    <div class="row">
+      <h2 class="text-center">There No photos</h2>
+    </div>
+    {% endif %}
+
+ 
+
+{% endblock content %}
