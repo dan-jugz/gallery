@@ -26,11 +26,19 @@ class Category(models.Model):
         return self.category_name
 
 
+class tags(models.Model):
+    tag_name=models.CharField(max_length=30, default='tag_name')
+
+    def __str__(self):
+        return self.tag_name
+
+
 class Image(models.Model):
     title = models.CharField(max_length =60)
     post = models.CharField(max_length =100)
     img_loc = models.ForeignKey(Location,on_delete=models.DO_NOTHING)
     img_category = models.ForeignKey(Category,on_delete=models.DO_NOTHING)
+    tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to = 'images/',default='')
 
