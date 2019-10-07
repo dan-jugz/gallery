@@ -3,6 +3,12 @@
 
 <h2 class="subtitle">Photobooth Home</h2>
 
+<!-- displaying photos -->
+<section class="masonry-grid" id="work">
+  <div class="grid">
+    <div class="grid-sizer"></div>
+    {% if photos%}
+    {% for pic in photos %}
     <!-- Looping through photos   -->
         <a data-toggle="modal" href="#{{pic.pk}}" class="picasso-modal-trigger">
           <div class="grid-item">
@@ -15,7 +21,8 @@
             </div>
         </a>  
         {% endfor %}   
-     
+      </div>
+    </section>
         
     
     {% else %}
