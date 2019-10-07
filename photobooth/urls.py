@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$',views.images_of_day,name='imagesToday'),
+url(r'^image/(\d+)',views.image,name='image')
 ]

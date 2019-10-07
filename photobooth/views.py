@@ -8,3 +8,12 @@ def images_of_day(request):
     photos=Image.objects.all()
     
     return render(request, "homepage.html",{"date":date,"photos":photos})
+
+
+def image(request,img_id):
+    try:
+        pic=Image.get_img_by_id(img_id)
+    except DoesNotExist:
+        raise Http404()
+
+    return render(request,'image.html',{'pic':pic})
