@@ -7,61 +7,69 @@
         }
 </style>
 
-<h2 class="subtitle">Photobooth Home</h2>
-
+<h2 class="text-center">Photobooth Home</h2>
+<div class="card-columns">
+  <div class="container">
 <!-- displaying photos -->
 <section class="masonry-grid" id="work">
   <div class="grid">
-    <div class="grid-sizer"></div>
+    <div class="grid-sizer">
     {% if photos%}
     {% for pic in photos %}
-    <!-- Looping through photos   -->
-        <a data-toggle="modal" href="#{{pic.pk}}" class="grid-item">
-            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-              <img src="{{pic.image.url}}" id="{{pic.id}}{{pic.img_name}}" class="img-responsive" alt="{{pic.img_name}}">
-              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <h2 class="text-center"> {{ pic.title }} </h2>
-                  </div>
-                </div>
-              <div class="overlay-slide-down"></div>
-            </div>
-        </a>
-  <div class="container">
-  <!-- Modal -->
-<div class="modal fade" id="{{pic.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{pic.id}}.{{pic.img_name}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+       <div class="card" style="width: 23rem;" data-toggle="modal" data-target="#{{pic.id}}">
+            <img src="{{pic.image.url}}" height="300vh" class="card-img" alt="img">
         </div>
-        <div class="modal-body">
-            <div class="card info-card">
-                <img class="card-img-top" src="{{pic.image.url}}" alt="Card image">
-                <div class="card-body">
-                  <h4 class="card-title text-center">{{pic.title}}</h4>
-                  <p class="card-text">{{pic.post}}</p>
-                  <ul class="list-group list-unstyled">
-                    <li class="list-group-item">Location:{{pic.img_loc}}</li>
-                    <li class="list-group-item">Category:{{pic.img_category}}</li>
-                    <li class="list-group-item">Posted:{{pic.pub_date | date}}</li>
-                    <li class="list-group-item">Artist:{{pic.user.first_name}} {{pic.author.last_name}}</li>
-                  </ul>
+        <div class="modal fade " id="{{pic.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content modalcard">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="picheader">{{pic.title}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="{{pic.image.url}}" alt="..." class="card-img img-fluid">
+                        <p class="imgdesc text-center">{{pic.post}}</p>
+                        {% for category in pic.categories.all %}
+                        <span class="btn btn-sm btn-outline-info">{{pic.category}}</span>
+                        {% endfor %}
+                        <a href="/location/{{pic.location}}"
+                            class="btn btn-sm btn-outline-info">{{pic.location}}</a>
+                            
+                            <h4 class="card-title text-center">{{pic.title}}</h4>
+                        <p class="card-text">{{pic.post}}</p>
+                        <ul class="list-group list-unstyled">
+                          <li class="list-group-item">Location:{{pic.img_loc}}</li>
+                          <li class="list-group-item">Category:{{pic.img_category}}</li>
+                          <li class="list-group-item">Posted:{{pic.pub_date | date}}</li>
+                          <li class="list-group-item">Artist:{{pic.user.first_name}} {{pic.author.last_name}}</li>
+                        </ul>
+
+                    </div><button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">Copy pic link:
+                      </button>
+                    <div class="modal-footer">
+                        <input class="form-control input-lg" type="text" value="{{pic.image.url}}"
+                            id="{{pic.id}}.url">
+                        <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">Close
+                        </button>
+                    </div>
                 </div>
             </div>
-          </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
-      </div>
-    </div>
-  </div>
+ 
   <!-- ================================================================ -->
-  
+  <script type="text/javascript">
+    function copyToClipboard(element) {
+        var myVar = document.getElementById(element);
+        myVar.select();
+        document.execCommand("copy");
+    }
+</script>
         {% endfor %}   
       </div>
+    </div>
     </section>
     
     
@@ -72,7 +80,7 @@
       <h2 class="text-center">There are No photos</h2>
     </div>
     {% endif %}
-
+  </div>
  
 
 {% endblock content %}

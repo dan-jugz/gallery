@@ -20,10 +20,15 @@
     {% block content %}
     <h1 class="text-center"> Images for {{date|date:"l d-F Y"}}</h1>
     {% endblock %}
+    
 
-    {% block scripts %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        {% bootstrap_javascript %}
-    {% endblock %}
-</body>
-</html>
+</body>       
+{% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {% bootstrap_javascript %}
+    <script src="{% static 'js/masonry.js' %}"></script>
+    <script src="{% static 'js/imagesLoaded.js'%}"></script>
+    <script src="{% static 'js/galleria.js' %}"></script>
+    
+    {% endblock scripts %}
+    </html>

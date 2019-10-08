@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="hello">
+<h1 class="text-center" id="welcome">WELCOME TO MY GALLERY WEBSITE</h1>
+<div class="container">
+
+    <div class="card-columns">
+        {% if photos%}
+    {% for pic in photos %}
+        <div class="card" style="width: 23rem;" data-toggle="modal" data-target="#{{pic.id}}">
+            <img src="{{pic.image.url}}" height="300vh" class="card-img-top" alt="...">
+        </div>
+        <div class="modal fade " id="{{pic.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content modalcard">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="picheader">{{pic.title}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="{{pic.image.url}}" alt="..." class="img-fluid">
+                        <p class="imgdesc text-center">{{pic.post}}</p>
+                        {% for category in pic.categories.all %}
+                        <span class="btn btn-sm btn-outline-info">{{pic.category}}</span>
+                        {% endfor %}
+                        <a href="/location/{{pic.location}}"
+                            class="btn btn-sm btn-outline-info">{{pic.location}}</a>
+                            <p>Copy pic link:</p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <input class="form-control input-lg" type="text" value="{{pic.image.url}}"
+                            id="{{pic.id}}.url">
+                        <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function copyToClipboard(element) {
+                var myVar = document.getElementById(element);
+                myVar.select();
+                document.execCommand("copy");
+            }
+        </script>
+
+
+        {% endfor %}
+    </div>
+
+
+</div>
+</div>
+{% endblock %}

@@ -29,3 +29,8 @@ h1, h2{
     font-style: italic;
     font-weight: bolder;
 }
+.card-img{
+    width: 100%!important;
+    height: 200px!important;
+    object-fit: cover;
+ }
